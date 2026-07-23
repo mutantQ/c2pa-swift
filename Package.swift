@@ -28,7 +28,9 @@ let package = Package(
         .package(
             url: "https://github.com/apple/swift-certificates.git", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/apple/swift-asn1.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/apple/swift-crypto.git", .upToNextMajor(from: "3.0.0"))
+        // Relaxed from .upToNextMajor(from: "3.0.0") to allow 4.x — fixes CVE-2026-43823
+        // (RSA double-free fixed in 4.5.1; no 3.x backport exists).
+        .package(url: "https://github.com/apple/swift-crypto.git", "3.0.0"..<"5.0.0")
     ],
     targets: [
         .binaryTarget(
